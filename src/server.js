@@ -34,6 +34,12 @@ app.use("/api/services", servicesRouter);
 app.use("/api/media", mediaRouter);
 app.use("/api/quotes", quoteRouter);
 
+// Serve API Documentation
+app.get("/api/docs", (req, res) => {
+
+  res.sendFile(path.join(process.cwd(), "src", "doc", "docs.html"));
+});
+
 app.get("/", (req, res) => res.send("Hello, Modular Backend!"));
 
 app.listen(PORT, () => {
