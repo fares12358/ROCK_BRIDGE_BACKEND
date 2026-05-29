@@ -6,56 +6,506 @@
     <title>Rock Bridge API Documentation</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');
         body { font-family: 'Inter', sans-serif; }
+        .code-font { font-family: 'Fira Code', monospace; }
         .method-post { background-color: #4ade80; color: #064e3b; }
         .method-get { background-color: #60a5fa; color: #1e3a8a; }
         .method-delete { background-color: #f87171; color: #7f1d1d; }
+        .endpoint-card:hover { border-color: #3b82f6; }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900">
-    <div class="max-w-5xl mx-auto px-4 py-12">
-        <header class="mb-12 text-center">
-            <h1 class="text-4xl font-extrabold text-gray-900 mb-4">Rock Bridge API Documentation</h1>
-            <p class="text-lg text-gray-600">Comprehensive guide to the Rock Bridge backend API endpoints and integration.</p>
+<body class="bg-slate-50 text-slate-900">
+    <div class="max-w-6xl mx-auto px-4 py-12">
+        <header class="mb-16 text-center">
+            <h1 class="text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">Rock Bridge API Reference</h1>
+            <p class="text-xl text-slate-600 max-w-3xl mx-auto">
+                A complete guide to integrating with the Rock Bridge backend. All requests should be made to the base URL: <span class="code-font bg-slate-200 px-2 py-1 rounded text-sm">http://localhost:5000</span>
+            </p>
         </header>
 
-        <!-- Auth Section -->
-        <section class="mb-16">
-            <div class="flex items-center mb-6">
-                <div class="p-2 bg-blue-100 rounded-lg mr-4">
-                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+        <!-- API Sections Container -->
+        <div class="space-y-20">
+            
+            <!-- Authentication Section -->
+            <section id="auth">
+                <div class="flex items-center mb-8 border-b pb-4">
+                    <div class="p-3 bg-blue-600 rounded-xl mr-4 shadow-lg">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                    </div>
+                    <h2 class="text-3xl font-bold text-slate-800">Authentication</h2>
                 </div>
-                <h2 class="text-2xl font-bold">Authentication</h2>
-            </div>
-            <div class="overflow-x-auto bg-white rounded-xl shadow-sm border border-gray-200">
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr class="bg-gray-100 border-b border-gray-200">
-                            <th class="px-6 py-4 font-semibold text-sm text-gray-700">Method</th>
-                            <th class="px-6 py-4 font-semibold text-sm text-gray-700">Endpoint</th>
-                            <th class="px-6 py-4 font-semibold text-sm text-gray-700">Description</th>
-                            <th class="px-6 py-4 font-semibold text-sm text-gray-700">Auth</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-200">
-                        <tr>
-                            <td class="px-6 py-4"><span class="px-2 py-1 rounded text-xs font-bold method-post">POST</span></td>
-                            <td class="px-6 py-4 font-mono text-sm">/api/auth/login</td>
-                            <td class="px-6 py-4 text-sm">Authenticate user and receive tokens</td>
-                            <td class="px-6 py-4 text-sm text-gray-500">None</td>
-                        </tr>
-                        <tr>
-                            <td class="px-6 py-4"><span class="px-2 py-1 rounded text-xs font-bold method-post">POST</span></td>
-                            <td class="px-6 py-4 font-mono text-sm">/api/auth/relogin</td>
-                            <td class="px-6 py-4 text-sm">Refresh access token using refresh token</td>
-                            <td class="px-6 py-4 text-sm text-gray-500">Refresh Token</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
 
-        <!-- Other API Sections can be added here -->
+                <div class="grid gap-6">
+                    <!-- Login -->
+                    <div class="endpoint-card bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden transition-all duration-200">
+                        <div class="p-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <span class="px-3 py-1 rounded-md text-xs font-bold method-post">POST</span>
+                                <span class="code-font text-sm font-medium text-slate-700">/api/auth/login</span>
+                            </div>
+                            <span class="text-xs text-slate-500">Public</span>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-slate-600 mb-6">Authenticates a user and returns an access token for subsequent requests.</p>
+                            <div class="grid md:grid-cols-2 gap-8">
+                                <div>
+                                    <h4 class="text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wider">Request Body (JSON)</h4>
+                                    <pre class="bg-slate-900 text-slate-300 p-4 rounded-lg text-sm code-font overflow-x-auto">
+{
+  "email": "user@example.com",
+  "password": "yourpassword"
+}</pre>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wider">Successful Response (200 OK)</h4>
+                                    <pre class="bg-slate-900 text-slate-300 p-4 rounded-lg text-sm code-font overflow-x-auto">
+{
+  "message": "Login successful",
+  "accessToken": "eyJhbGci...",
+  "user": {
+    "id": "64a...",
+    "name": "John Doe",
+    "email": "user@example.com"
+  }
+}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Relogin -->
+                    <div class="endpoint-card bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden transition-all duration-200">
+                        <div class="p-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <span class="px-3 py-1 rounded-md text-xs font-bold method-post">POST</span>
+                                <span class="code-font text-sm font-medium text-slate-700">/api/auth/relogin</span>
+                            </div>
+                            <span class="text-xs text-slate-500">Token Required</span>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-slate-600 mb-6">Validates the existing token and issues a fresh one (Session Refresh).</p>
+                            <div class="grid md:grid-cols-2 gap-8">
+                                <div>
+                                    <h4 class="text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wider">Authentication</h4>
+                                    <p class="text-sm text-slate-600 mb-2">Header: <span class="code-font bg-slate-100 px-1">Authorization: Bearer <token></span></p>
+                                    <p class="text-sm text-slate-600">OR Body: <span class="code-font bg-slate-100 px-1">{ "token": "..." }</span></p>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wider">Response (200 OK)</h4>
+                                    <pre class="bg-slate-900 text-slate-300 p-4 rounded-lg text-sm code-font overflow-x-auto">
+{
+  "message": "Token refreshed",
+  "accessToken": "eyJhbGci...",
+  "user": { ... }
+}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Forgot Password -->
+                    <div class="endpoint-card bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden transition-all duration-200">
+                        <div class="p-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <span class="px-3 py-1 rounded-md text-xs font-bold method-post">POST</span>
+                                <span class="code-font text-sm font-medium text-slate-700">/api/auth/forgot</span>
+                            </div>
+                            <span class="text-xs text-slate-500">Public</span>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-slate-600 mb-6">Sends a password reset OTP to the specified email address.</p>
+                            <div class="grid md:grid-cols-2 gap-8">
+                                <div>
+                                    <h4 class="text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wider">Request Body (JSON)</h4>
+                                    <pre class="bg-slate-900 text-slate-300 p-4 rounded-lg text-sm code-font overflow-x-auto">
+{
+  "email": "user@example.com"
+}</pre>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wider">Response (200 OK)</h4>
+                                    <pre class="bg-slate-900 text-slate-300 p-4 rounded-lg text-sm code-font overflow-x-auto">
+{
+  "message": "Reset instructions sent to email"
+}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reset Password -->
+                    <div class="endpoint-card bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden transition-all duration-200">
+                        <div class="p-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <span class="px-3 py-1 rounded-md text-xs font-bold method-post">POST</span>
+                                <span class="code-font text-sm font-medium text-slate-700">/api/auth/reset</span>
+                            </div>
+                            <span class="text-xs text-slate-500">Public</span>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-slate-600 mb-6">Updates password using the OTP sent to the email.</p>
+                            <div class="grid md:grid-cols-2 gap-8">
+                                <div>
+                                    <h4 class="text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wider">Request Body (JSON)</h4>
+                                    <pre class="bg-slate-900 text-slate-300 p-4 rounded-lg text-sm code-font overflow-x-auto">
+{
+  "email": "user@example.com",
+  "otp": "123456",
+  "newPassword": "new secure password"
+}</pre>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wider">Response (200 OK)</h4>
+                                    <pre class="bg-slate-900 text-slate-300 p-4 rounded-lg text-sm code-font overflow-x-auto">
+{
+  "message": "Password reset successful"
+}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Get My Info -->
+                    <div class="endpoint-card bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden transition-all duration-200">
+                        <div class="p-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <span class="px-3 py-1 rounded-md text-xs font-bold method-get">GET</span>
+                                <span class="code-font text-sm font-medium text-slate-700">/api/auth/me</span>
+                            </div>
+                            <span class="text-xs text-slate-500">Auth Required</span>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-slate-600 mb-6">Retrieves current authenticated user profile.</p>
+                            <div class="grid md:grid-cols-2 gap-8">
+                                <div>
+                                    <h4 class="text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wider">Authentication</h4>
+                                    <p class="text-sm text-slate-600">Header: <span class="code-font bg-slate-100 px-1">Authorization: Bearer <token></span></p>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wider">Response (200 OK)</h4>
+                                    <pre class="bg-slate-900 text-slate-300 p-4 rounded-lg text-sm code-font overflow-x-auto">
+{
+  "user": {
+    "id": "64a...",
+    "name": "John Doe",
+    "email": "user@example.com"
+  }
+}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Services Section -->
+            <section id="services">
+                <div class="flex items-center mb-8 border-b pb-4">
+                    <div class="p-3 bg-emerald-600 rounded-xl mr-4 shadow-lg">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                    </div>
+                    <h2 class="text-3xl font-bold text-slate-800">Services</h2>
+                </div>
+
+                <div class="grid gap-6">
+                    <!-- Get Services -->
+                    <div class="endpoint-card bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden transition-all duration-200">
+                        <div class="p-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <span class="px-3 py-1 rounded-md text-xs font-bold method-get">GET</span>
+                                <span class="code-font text-sm font-medium text-slate-700">/api/services</span>
+                            </div>
+                            <span class="text-xs text-slate-500">Public</span>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-slate-600 mb-6">Retrieves all services listed on the website.</p>
+                            <div>
+                                <h4 class="text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wider">Response (200 OK)</h4>
+                                <pre class="bg-slate-900 text-slate-300 p-4 rounded-lg text-sm code-font overflow-x-auto">
+[
+  {
+    "_id": "64...",
+    "title_en": "Web Design",
+    "title_ar": "تصميم المواقع",
+    "description_en": "...",
+    "description_ar": "...",
+    "img": "http://localhost:5000/uploads/image.jpg",
+    "createdAt": "..."
+  }
+]</pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add Service -->
+                    <div class="endpoint-card bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden transition-all duration-200">
+                        <div class="p-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <span class="px-3 py-1 rounded-md text-xs font-bold method-post">POST</span>
+                                <span class="code-font text-sm font-medium text-slate-700">/api/services</span>
+                            </div>
+                            <span class="text-xs text-slate-500">Auth Required</span>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-slate-600 mb-6">Adds a new service. Requires multipart/form-data.</p>
+                            <div class="grid md:grid-cols-2 gap-8">
+                                <div>
+                                    <h4 class="text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wider">Form Data</h4>
+                                    <ul class="text-sm space-y-2 text-slate-600">
+                                        <li><span class="code-font font-medium">title_en</span> (required) - English title</li>
+                                        <li><span class="code-font font-medium">title_ar</span> (required) - Arabic title</li>
+                                        <li><span class="code-font font-medium">description_en</span> (required) - English description</li>
+                                        <li><span class="code-font font-medium">description_ar</span> (required) - Arabic description</li>
+                                        <li><span class="code-font font-medium">image</span> (required) - Image file (JPEG, PNG, GIF)</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wider">Response (201 Created)</h4>
+                                    <pre class="bg-slate-900 text-slate-300 p-4 rounded-lg text-sm code-font overflow-x-auto">
+{
+  "message": "Service created",
+  "service": { ... }
+}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Delete Service -->
+                    <div class="endpoint-card bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden transition-all duration-200">
+                        <div class="p-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <span class="px-3 py-1 rounded-md text-xs font-bold method-delete">DELETE</span>
+                                <span class="code-font text-sm font-medium text-slate-700">/api/services/:id</span>
+                            </div>
+                            <span class="text-xs text-slate-500">Auth Required</span>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-slate-600 mb-6">Deletes a service and its associated image from storage.</p>
+                            <div class="grid md:grid-cols-2 gap-8">
+                                <div>
+                                    <h4 class="text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wider">Path Parameters</h4>
+                                    <p class="text-sm text-slate-600"><span class="code-font bg-slate-100 px-1">id</span> - The unique ID of the service</p>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wider">Response (200 OK)</h4>
+                                    <pre class="bg-slate-900 text-slate-300 p-4 rounded-lg text-sm code-font overflow-x-auto">
+{
+  "message": "Service deleted"
+}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Media Section -->
+            <section id="media">
+                <div class="flex items-center mb-8 border-b pb-4">
+                    <div class="p-3 bg-purple-600 rounded-xl mr-4 shadow-lg">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h2 class="text-3xl font-bold text-slate-800">Media Library</h2>
+                </div>
+
+                <div class="grid gap-6">
+                    <!-- Get Media -->
+                    <div class="endpoint-card bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden transition-all duration-200">
+                        <div class="p-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <span class="px-3 py-1 rounded-md text-xs font-bold method-get">GET</span>
+                                <span class="code-font text-sm font-medium text-slate-700">/api/media</span>
+                            </div>
+                            <span class="text-xs text-slate-500">Public</span>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-slate-600 mb-6">Retrieves all uploaded images and videos.</p>
+                            <div>
+                                <h4 class="text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wider">Response (200 OK)</h4>
+                                <pre class="bg-slate-900 text-slate-300 p-4 rounded-lg text-sm code-font overflow-x-auto">
+[
+  {
+    "_id": "64...",
+    "title_en": "Hero Video",
+    "mediaUrl": "http://...",
+    "mediaType": "video",
+    "size": 5242880
+  }
+]</pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add Media -->
+                    <div class="endpoint-card bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden transition-all duration-200">
+                        <div class="p-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <span class="px-3 py-1 rounded-md text-xs font-bold method-post">POST</span>
+                                <span class="code-font text-sm font-medium text-slate-700">/api/media</span>
+                            </div>
+                            <span class="text-xs text-slate-500">Auth Required</span>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-slate-600 mb-6">Uploads a new image or video file.</p>
+                            <div class="grid md:grid-cols-2 gap-8">
+                                <div>
+                                    <h4 class="text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wider">Form Data</h4>
+                                    <ul class="text-sm space-y-2 text-slate-600">
+                                        <li><span class="code-font font-medium">file</span> (required) - Media file</li>
+                                        <li><span class="code-font font-medium">title_en</span> (optional) - English title</li>
+                                        <li><span class="code-font font-medium">title_ar</span> (optional) - Arabic title</li>
+                                        <li><span class="code-font font-medium">description_en</span> (optional) - English description</li>
+                                        <li><span class="code-font font-medium">description_ar</span> (optional) - Arabic description</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wider">Response (201 Created)</h4>
+                                    <pre class="bg-slate-900 text-slate-300 p-4 rounded-lg text-sm code-font overflow-x-auto">
+{
+  "message": "Media uploaded",
+  "media": { ... }
+}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Delete Media -->
+                    <div class="endpoint-card bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden transition-all duration-200">
+                        <div class="p-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <span class="px-3 py-1 rounded-md text-xs font-bold method-delete">DELETE</span>
+                                <span class="code-font text-sm font-medium text-slate-700">/api/media/:id</span>
+                            </div>
+                            <span class="text-xs text-slate-500">Auth Required</span>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-slate-600 mb-6">Deletes a media file from the library and storage.</p>
+                            <div class="grid md:grid-cols-2 gap-8">
+                                <div>
+                                    <h4 class="text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wider">Path Parameters</h4>
+                                    <p class="text-sm text-slate-600"><span class="code-font bg-slate-100 px-1">id</span> - The unique ID of the media</p>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wider">Response (200 OK)</h4>
+                                    <pre class="bg-slate-900 text-slate-300 p-4 rounded-lg text-sm code-font overflow-x-auto">
+{
+  "message": "Media deleted"
+}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quotes Section -->
+            <section id="quotes">
+                <div class="flex items-center mb-8 border-b pb-4">
+                    <div class="p-3 bg-amber-600 rounded-xl mr-4 shadow-lg">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                    </div>
+                    <h2 class="text-3xl font-bold text-slate-800">Quote Requests</h2>
+                </div>
+
+                <div class="grid gap-6">
+                    <!-- Get Quotes -->
+                    <div class="endpoint-card bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden transition-all duration-200">
+                        <div class="p-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <span class="px-3 py-1 rounded-md text-xs font-bold method-get">GET</span>
+                                <span class="code-font text-sm font-medium text-slate-700">/api/quotes</span>
+                            </div>
+                            <span class="text-xs text-slate-500">Auth Required</span>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-slate-600 mb-6">Retrieves all customer quote requests.</p>
+                            <div>
+                                <h4 class="text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wider">Response (200 OK)</h4>
+                                <pre class="bg-slate-900 text-slate-300 p-4 rounded-lg text-sm code-font overflow-x-auto">
+[
+  {
+    "_id": "64...",
+    "name": "Jane Smith",
+    "phone": "+123...",
+    "email": "jane@example.com",
+    "message": "I need a quote for...",
+    "createdAt": "..."
+  }
+]</pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add Quote -->
+                    <div class="endpoint-card bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden transition-all duration-200">
+                        <div class="p-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <span class="px-3 py-1 rounded-md text-xs font-bold method-post">POST</span>
+                                <span class="code-font text-sm font-medium text-slate-700">/api/quotes</span>
+                            </div>
+                            <span class="text-xs text-slate-500">Public</span>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-slate-600 mb-6">Submits a new quote request. Triggers email notifications to admin.</p>
+                            <div class="grid md:grid-cols-2 gap-8">
+                                <div>
+                                    <h4 class="text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wider">Request Body (JSON)</h4>
+                                    <pre class="bg-slate-900 text-slate-300 p-4 rounded-lg text-sm code-font overflow-x-auto">
+{
+  "name": "Jane Smith",
+  "phone": "+123...",
+  "email": "jane@example.com",
+  "message": "I need a quote for..."
+}</pre>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wider">Response (201 Created)</h4>
+                                    <pre class="bg-slate-900 text-slate-300 p-4 rounded-lg text-sm code-font overflow-x-auto">
+{
+  "message": "Quote request created",
+  "quote": { ... }
+}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Delete Quote -->
+                    <div class="endpoint-card bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden transition-all duration-200">
+                        <div class="p-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <span class="px-3 py-1 rounded-md text-xs font-bold method-delete">DELETE</span>
+                                <span class="code-font text-sm font-medium text-slate-700">/api/quotes/:id</span>
+                            </div>
+                            <span class="text-xs text-slate-500">Auth Required</span>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-slate-600 mb-6">Removes a quote request from the database.</p>
+                            <div class="grid md:grid-cols-2 gap-8">
+                                <div>
+                                    <h4 class="text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wider">Path Parameters</h4>
+                                    <p class="text-sm text-slate-600"><span class="code-font bg-slate-100 px-1">id</span> - The unique ID of the quote request</p>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wider">Response (200 OK)</h4>
+                                    <pre class="bg-slate-900 text-slate-300 p-4 rounded-lg text-sm code-font overflow-x-auto">
+{
+  "message": "Quote deleted"
+}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer class="mt-20 text-center text-slate-400 text-sm">
+            <p>&copy; 2026 Rock Bridge. All rights reserved.</p>
+        </footer>
     </div>
 </body>
 </html>
