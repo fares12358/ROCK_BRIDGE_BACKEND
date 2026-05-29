@@ -2,6 +2,10 @@
 
 A professional Node.js and Express backend for the Rock Bridge project, providing a robust API for managing services, quotes, media, and user authentication.
 
+## 🌐 API Documentation
+
+**View live API documentation**: [https://rock-bridge-backend.vercel.app/api/docs](https://rock-bridge-backend.vercel.app/api/docs)
+
 ## 🚀 Tech Stack
 - **Runtime**: Node.js
 - **Framework**: Express.js
